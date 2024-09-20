@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rideapp-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rideapp
+  template:
+    metadata:
+      labels:
+        app: rideapp
+    spec:
+      containers:
+      - name: rideapp
+        image: gcr.io/rhic-innovation/rideapp
+        ports:
+        - containerPort: 8080
+        env:
+        - name: GOOGLE_MAPS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: google-maps-api-key
+              key: api-key
