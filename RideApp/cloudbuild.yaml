@@ -3,7 +3,11 @@ steps:
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/rideapp', '.']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/rideapp']
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'gcr.io/cloud-builders/docker'
     args: ['run', 'deploy', 'rideapp', '--image', 'gcr.io/$PROJECT_ID/rideapp', '--region', 'YOUR_REGION', '--platform', 'managed', '--allow-unauthenticated']
+
+serviceAccount: 'rhic-innovation@appspot.gserviceaccount.com'
+options:
+   logging: 'NONE'
 images:
   - 'gcr.io/$PROJECT_ID/rideapp'
